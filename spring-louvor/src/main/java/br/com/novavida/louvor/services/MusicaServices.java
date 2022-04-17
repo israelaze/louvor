@@ -82,6 +82,12 @@ public class MusicaServices {
 			throw new EntityNotFoundException("Não encontrada!");
 		}
 		
+		Optional<Musica> result2 = repository.findByNomeAndfindByArtista(dto.getNome(), dto.getArtista());
+		
+		if(result2.isPresent()) {
+			throw new BadRequestException("Não permitido. Música já cadastrada!");
+		}
+		
 		Musica musica = result.get();
 		
 		mapper.map(dto, musica);

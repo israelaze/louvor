@@ -1,5 +1,7 @@
 package br.com.novavida.louvor.dtos;
 
+import javax.validation.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,8 +11,10 @@ public class MusicaPutDTO {
 	
 	private Integer id;
 	
+	@NotBlank(message = "{nome.not.blank}")
 	private String nome;
 	
+	@NotBlank(message = "{artista.not.blank}")
 	private String artista;
 	
 	private String album;
