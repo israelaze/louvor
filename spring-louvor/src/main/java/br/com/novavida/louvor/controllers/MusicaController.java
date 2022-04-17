@@ -20,16 +20,20 @@ import br.com.novavida.louvor.dtos.MusicaPostDTO;
 import br.com.novavida.louvor.dtos.MusicaPutDTO;
 import br.com.novavida.louvor.exceptions.ServiceException;
 import br.com.novavida.louvor.services.MusicaServices;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api/musicas")
+@Api(tags = "Menu músicas")
 public class MusicaController {
 	
 	private final MusicaServices service;
 	
 	@PostMapping
+	@ApiOperation(value = "Cadastrar")
 	public ResponseEntity<String> cadastrar(@RequestBody @Valid MusicaPostDTO dto){
 		
 		try {
@@ -42,6 +46,7 @@ public class MusicaController {
 	}
 	
 	@GetMapping
+	@ApiOperation(value = "Buscar todas")
 	public ResponseEntity<List<MusicaGetDTO>> buscarTodas(){
 		
 		try {
@@ -54,6 +59,7 @@ public class MusicaController {
 	}
 	
 	@GetMapping(value = "/{id}")
+	@ApiOperation(value = "Buscar por id")
 	public ResponseEntity<MusicaGetDTO> buscarId(@PathVariable("id") Integer id){
 		
 		try {
@@ -66,6 +72,7 @@ public class MusicaController {
 	}
 	
 	@PutMapping
+	@ApiOperation(value = "Atualizar")
 	public ResponseEntity<String> atualizar(@RequestBody @Valid MusicaPutDTO dto){
 		
 		try {
@@ -78,6 +85,7 @@ public class MusicaController {
 	}
 	
 	@DeleteMapping(value = "/{id}")
+	@ApiOperation(value = "Excluir")
 	public ResponseEntity<String> excluir(@PathVariable("id") Integer id){
 		
 		try {

@@ -1,5 +1,7 @@
 package br.com.novavida.louvor.dtos;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
@@ -19,6 +21,8 @@ public class MusicaPutDTO {
 	
 	private String album;
 	
+	@Max(value = 2050, message = "{anoLancamento.max}")
+	@Min(value = 1950, message = "{anoLancamento.min}")
 	private Integer anoLancamento;
 	
 	private String letra;
