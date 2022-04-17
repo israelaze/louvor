@@ -13,6 +13,8 @@ import br.com.novavida.louvor.dtos.MusicaGetDTO;
 import br.com.novavida.louvor.dtos.MusicaPostDTO;
 import br.com.novavida.louvor.dtos.MusicaPutDTO;
 import br.com.novavida.louvor.entities.Musica;
+import br.com.novavida.louvor.exceptions.BadRequestException;
+import br.com.novavida.louvor.exceptions.EntityNotFoundException;
 import br.com.novavida.louvor.repositories.MusicaRepository;
 import lombok.AllArgsConstructor;
 
@@ -29,7 +31,7 @@ public class MusicaServices {
 		Optional<Musica> result = repository.findByNomeAndfindByArtista(dto.getNome(), dto.getArtista());
 		
 		if(result.isPresent()) {
-			return "Essa música já está cadastrada.";
+			throw new BadRequestException("Música já cadastrada!");
 		}
 		
 		Musica musica = new Musica();
@@ -37,7 +39,7 @@ public class MusicaServices {
 		
 		repository.save(musica);
 		
-		return "Cadastrada.";
+		return "Cadastrada com sucesso.";
 	}
 	
 	public List<MusicaGetDTO> buscarTodas(){
@@ -60,6 +62,10 @@ public class MusicaServices {
 		
 		Optional<Musica> result = repository.findById(id);
 		
+		if(result.isEmpty()) {
+			throw new EntityNotFoundException("Não encontrada!");
+		}
+		
 		Musica musica = result.get();
 		
 		MusicaGetDTO dto = new MusicaGetDTO();
@@ -73,7 +79,7 @@ public class MusicaServices {
 		Optional<Musica> result = repository.findById(dto.getId());
 		
 		if(result.isEmpty()) {
-			return "Não encontrada.";
+			throw new EntityNotFoundException("Não encontrada!");
 		}
 		
 		Musica musica = result.get();
@@ -82,7 +88,7 @@ public class MusicaServices {
 		
 		repository.save(musica);
 		
-		return "Atualizada.";
+		return "Atualizada com sucesso.";
 	}
 	
 	public String excluir(Integer id) {
@@ -90,14 +96,14 @@ public class MusicaServices {
 		Optional<Musica> result = repository.findById(id);
 		
 		if(result.isEmpty()) {
-			return "Não encontrada.";
+			throw new EntityNotFoundException("Não encontrada!");
 		}
 		
 		Musica musica = result.get();
 		
 		repository.delete(musica);
 		
-		return "Excluída.";	
+		return "Excluída com sucesso.";	
 	}
 
 }

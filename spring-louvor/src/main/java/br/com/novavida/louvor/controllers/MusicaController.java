@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.novavida.louvor.dtos.MusicaGetDTO;
 import br.com.novavida.louvor.dtos.MusicaPostDTO;
 import br.com.novavida.louvor.dtos.MusicaPutDTO;
+import br.com.novavida.louvor.exceptions.ServiceException;
 import br.com.novavida.louvor.services.MusicaServices;
 import lombok.AllArgsConstructor;
 
@@ -32,7 +33,7 @@ public class MusicaController {
 			String response = service.cadastrar(dto);
 			return ResponseEntity.status(HttpStatus.CREATED).body(response);
 			
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
 	}
@@ -44,7 +45,7 @@ public class MusicaController {
 			List<MusicaGetDTO> lista = service.buscarTodas();
 			return ResponseEntity.ok(lista);
 			
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -56,7 +57,7 @@ public class MusicaController {
 			MusicaGetDTO dto = service.buscarId(id);
 			return ResponseEntity.ok(dto);
 			
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
@@ -68,7 +69,7 @@ public class MusicaController {
 			String response = service.atualizar(dto);
 			return ResponseEntity.ok(response);
 			
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
 	}
@@ -80,7 +81,7 @@ public class MusicaController {
 			String response = service.excluir(id);
 			return ResponseEntity.ok(response);
 			
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().body(e.getMessage());
 		}
 	}
