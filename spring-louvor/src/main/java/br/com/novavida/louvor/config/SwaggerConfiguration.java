@@ -30,7 +30,7 @@ public class SwaggerConfiguration {
 
 	private ApiInfo apiInfo() {
 		return new ApiInfo("Louvores", "Sistema desenvolvido em Java Spring Boot, Hibernate e JPA.", "Versão 1.0", "",
-				new Contact("Israel Fraga", "https://github.com/israelaze/loja", "israelaze@gmail.com"), "", "",
+				new Contact("Israel Fraga", "https://github.com/israelaze/louvor", "israelaze@gmail.com"), "", "",
 				Collections.emptyList());
 	}
 
