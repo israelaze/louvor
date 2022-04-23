@@ -16,7 +16,7 @@ const routes: Routes = [
       { path: 'consultar-louvores', component: ConsultarLouvoresComponent },
       { path: 'cadastrar-louvores', component: CadastrarLouvoresComponent }
     ] 
-  }
+  },
 ];
 
 @NgModule({

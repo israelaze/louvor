@@ -1,1 +1,69 @@
-<p>home works!</p>
+<!-- LAYOUT DO SISTEMA -->
+<div id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
+                <div class="sidebar-brand-icon">
+                    <i class='fas fa-music' style='font-size:40px'></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">
+                    <h4>Repertório</h4>
+                </div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">Gerenciamento</div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+                    <svg xmlns="http://www.w3.org/2000/svg" wtidh="20" height="20" fill="currentColor" class="bi bi-file-music-fill" viewBox="0 0 16 16">
+                        <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-.5 4.11v1.8l-2.5.5v5.09c0 .495-.301.883-.662 1.123C7.974 12.866 7.499 13 7 13c-.5 0-.974-.134-1.338-.377-.36-.24-.662-.628-.662-1.123s.301-.883.662-1.123C6.026 10.134 6.501 10 7 10c.356 0 .7.068 1 .196V4.41a1 1 0 0 1 .804-.98l1.5-.3a1 1 0 0 1 1.196.98z"/>
+                    </svg>
+                    <span> Louvores</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Ações:</h6>
+                        <a class="collapse-item" routerLink="cadastrar-louvores"> Cadastrar Louvores</a>
+                        <a class="collapse-item" routerLink="consultar-louvores"> Consultar/Editar Louvores</a>
+                    </div>
+                </div>
+            </li>            
+        </ul>
+        <!-- End of Sidebar -->
+
+          <!-- Content Wrapper -->
+          <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+                <div class="container-fluid">
+                    <!-- Local para exibir os componentes(páginas)-->
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; IAMF Informática 2022</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
