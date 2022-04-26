@@ -31,7 +31,7 @@ public class MusicaServices {
 	private final MusicaRepository repository;
 	private final ModelMapper mapper;
 	
-	public String cadastrar(MusicaPostDTO dto) {
+	public MusicaPostDTO cadastrar(MusicaPostDTO dto) {
 		
 		Optional<Musica> result = repository.findByNomeAndfindByArtista(dto.getNome(), dto.getArtista());
 		
@@ -44,7 +44,7 @@ public class MusicaServices {
 		
 		repository.save(musica);
 		
-		return "Cadastrada com sucesso.";
+		return dto;
 	}
 	
 	public CollectionModel<MusicaGetDTO> buscarTodas(){

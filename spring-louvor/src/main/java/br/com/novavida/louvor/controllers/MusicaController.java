@@ -33,14 +33,14 @@ public class MusicaController {
 	
 	@PostMapping
 	@ApiOperation(value = "Cadastrar")
-	public ResponseEntity<String> cadastrar(@RequestBody @Valid MusicaPostDTO dto){
+	public ResponseEntity<MusicaPostDTO> cadastrar(@RequestBody @Valid MusicaPostDTO dto){
 		
 		try {
-			String response = service.cadastrar(dto);
-			return ResponseEntity.status(HttpStatus.CREATED).body(response);
+			MusicaPostDTO post = service.cadastrar(dto);
+			return ResponseEntity.status(HttpStatus.CREATED).body(post);
 			
 		} catch (ServiceException e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 	
