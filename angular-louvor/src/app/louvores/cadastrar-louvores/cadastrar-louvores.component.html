@@ -1,1 +1,122 @@
-<p>cadastrar-louvores works!</p>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Cadastro de Músicas</h1>
+</div>
+
+<!-- Exibindo mensagens -->
+<div *ngIf="mensagemSucesso" class="w-50 p-2 alert alert-success alert-dismissible fade show" role="alert">
+     Música <strong>{{louvor.nome}}</strong>  cadastrada com sucesso.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div *ngIf="mensagemErro" class="w-50 p-2 alert alert-danger mt-2 alert-dismissible fade show" role="alert">
+    <strong>Erro!</strong> {{mensagemErro}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Página -->
+<div class="row">
+    <div class="col-xl-12 col-md-12 mb-12">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+
+                <!--Formulário da página-->
+                <form [formGroup]="formCadastro" (ngSubmit)="cadastrar()">
+
+                    <!--capturando o campo nome do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Nome:</label>
+                            <input type="text" class="form-control" formControlName="nome" placeholder="Informe o nome da música" maxlength="50" />
+                            <!-- exibindo mensagens de validação-->
+                            <span *ngIf="form.nome.touched && form.nome.invalid">
+                                <span *ngIf="form.nome.errors.required" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Campo obrigatório.
+                                </span>
+                                <span *ngIf="form.nome.errors.pattern" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Você deve informar o nome da música.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo Artista do formulário-->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Artista:</label>
+                            <input type="text" class="form-control" formControlName="artista" placeholder="Informe o nome do artista" maxlength="50" />
+                            <!-- exibindo mensagens de validação-->
+                            <span *ngIf="form.artista.touched && form.artista.invalid">
+                                <span *ngIf="form.artista.errors.required" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Campo obrigatório.
+                                </span>
+                                <span *ngIf="form.artista.errors.pattern" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i>  Você deve informar o artista.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo album do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Álbum:</label>
+                            <input type="text" class="form-control" formControlName="album" placeholder="Informe o álbum da música" maxlength="50"/>
+                        </div>
+                    </div>
+                    <br />
+
+                     <!--capturando o campo Ano do formulário-->
+                     <div class="row">
+                        <div class="col-md-5">
+                            <label>Ano:</label>
+                            <input type="text" class="form-control" formControlName="anoLancamento" placeholder="Informe o ano de lançamento" maxlength="4"/>
+                        </div>
+                        <span *ngIf="form.anoLancamento.invalid">
+                            <span *ngIf="form.anoLancamento.errors.pattern" class="text-danger">
+                                <i class="fa fa-exclamation-circle"></i> Apenas caracteres numéricos.
+                            </span>
+                        </span>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo letra do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Letra:</label>
+                            <input type="text" class="form-control" formControlName="letra" placeholder="Entre com a url da letra"/>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo Cifra do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Cifra:</label>
+                            <input type="text" class="form-control" formControlName="cifra" placeholder="Entre com a url da da cifra" />
+                        </div>
+                    </div>
+                    <br />
+
+                     <!--capturando o campo YouTube do formulário-->
+                     <div class="row">
+                        <div class="col-md-5">
+                            <label>YouTube:</label>
+                            <input type="text" class="form-control" formControlName="youtube" placeholder="Entre com a url do youtube" />
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--Botão ubmit chama a função cadastrarCliente passando o conteúdo do formCadastro -->
+                    <input [disabled]="!formCadastro.valid" type="submit" value="Cadastrar Música" class="btn btn-success" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

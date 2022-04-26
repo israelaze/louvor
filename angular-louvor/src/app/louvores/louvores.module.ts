@@ -7,7 +7,6 @@ import { LouvoresRoutingModule } from './louvores-routing.module';
 import { CadastrarLouvoresComponent } from './cadastrar-louvores/cadastrar-louvores.component';
 import { ConsultarLouvoresComponent } from './consultar-louvores/consultar-louvores.component';
 
-
 @NgModule({
   declarations: [
     CadastrarLouvoresComponent,
