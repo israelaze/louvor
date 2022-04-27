@@ -3,6 +3,7 @@ package br.com.novavida.louvor.services;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +37,14 @@ public class MusicaServices {
 		
 		if(result.isPresent()) {
 			throw new BadRequestException("Música já cadastrada!");
+		}
+		
+		//capturando o ano atual
+		int anoAtual = YearMonth.now().getYear();
+		if (dto.getAnoLancamento() > anoAtual) {
+			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
+		}else if (dto.getAnoLancamento() < 1950) {
+			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950!");
 		}
 		
 		Musica musica = new Musica();
@@ -90,6 +99,14 @@ public class MusicaServices {
 		
 		if(result.isEmpty()) {
 			throw new EntityNotFoundException("Não encontrada!");
+		}
+		
+		// capturando o ano atual
+		int anoAtual = YearMonth.now().getYear();
+		if (dto.getAnoLancamento() > anoAtual) {
+			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
+		} else if (dto.getAnoLancamento() < 1950) {
+			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950!");
 		}
 		
 		Optional<Musica> result2 = repository.findByNomeAndfindByArtista(dto.getNome(), dto.getArtista());
