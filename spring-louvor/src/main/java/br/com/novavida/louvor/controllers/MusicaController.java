@@ -1,8 +1,9 @@
 package br.com.novavida.louvor.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,10 +47,10 @@ public class MusicaController {
 	
 	@GetMapping
 	@ApiOperation(value = "Buscar todas")
-	public ResponseEntity<CollectionModel<MusicaGetDTO>> buscarTodas(){
+	public ResponseEntity<List<MusicaGetDTO>> buscarTodas(){
 		
 		try {
-			CollectionModel<MusicaGetDTO> lista = service.buscarTodas();
+			List<MusicaGetDTO> lista = service.buscarTodas();
 			return ResponseEntity.ok(lista);
 			
 		} catch (ServiceException e) {

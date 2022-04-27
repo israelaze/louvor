@@ -1,5 +1,8 @@
 package br.com.novavida.louvor.services;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +10,6 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
 import br.com.novavida.louvor.controllers.MusicaController;
@@ -19,9 +21,6 @@ import br.com.novavida.louvor.exceptions.BadRequestException;
 import br.com.novavida.louvor.exceptions.EntityNotFoundException;
 import br.com.novavida.louvor.repositories.MusicaRepository;
 import lombok.AllArgsConstructor;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 @Transactional
@@ -47,7 +46,7 @@ public class MusicaServices {
 		return dto;
 	}
 	
-	public CollectionModel<MusicaGetDTO> buscarTodas(){
+	public List<MusicaGetDTO> buscarTodas(){
 		
 		List<MusicaGetDTO> listaGetDto = new ArrayList<MusicaGetDTO>();
 		List<Musica> listaMusica = repository.findAll();
@@ -57,13 +56,13 @@ public class MusicaServices {
 			MusicaGetDTO dto = new MusicaGetDTO();
 			mapper.map(musica, dto);
 			
+			//adicionando link HATEOAS
 			dto.add(linkTo(methodOn(MusicaController.class).buscarId(musica.getId())).withSelfRel());
-			dto.add(linkTo(methodOn(MusicaController.class).buscarTodas()).withRel("Lista de Músicas"));
 			
 			listaGetDto.add(dto);
 		}
 		
-		return CollectionModel.of(listaGetDto).add(linkTo(methodOn(MusicaController.class).buscarTodas()).withSelfRel());
+		return listaGetDto;
 	}
 	
 	public MusicaGetDTO buscarId(Integer id) {
@@ -79,6 +78,9 @@ public class MusicaServices {
 		MusicaGetDTO dto = new MusicaGetDTO();
 		mapper.map(musica, dto);
 		
+		//adicionando link HATEOAS
+		dto.add(linkTo(methodOn(MusicaController.class).buscarTodas()).withRel("Lista de Músicas"));
+
 		return dto;
 	}
 	
