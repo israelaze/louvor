@@ -41,18 +41,21 @@ public class MusicaServices {
 		
 		//capturando o ano atual
 		int anoAtual = YearMonth.now().getYear();
-		if (dto.getAnoLancamento() > anoAtual) {
+		Integer anoLancamento = dto.getAnoLancamento();
+		
+		if (anoLancamento != null && anoLancamento > anoAtual) {
 			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
-		}else if (dto.getAnoLancamento() < 1950) {
+		}else if (anoLancamento != null && anoLancamento < 1950) {
 			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950!");
-		}
-		
-		Musica musica = new Musica();
-		mapper.map(dto, musica);
-		
-		repository.save(musica);
-		
-		return dto;
+		}else {
+			
+			Musica musica = new Musica();
+			mapper.map(dto, musica);
+			
+			repository.save(musica);
+			
+			return dto;
+		}		
 	}
 	
 	public List<MusicaGetDTO> buscarTodas(){
@@ -96,32 +99,34 @@ public class MusicaServices {
 	public String atualizar(MusicaPutDTO dto) {
 		
 		Optional<Musica> result = repository.findById(dto.getId());
-		
-		if(result.isEmpty()) {
+
+		if (result.isEmpty()) {
 			throw new EntityNotFoundException("Não encontrada!");
 		}
-		
-		// capturando o ano atual
-		int anoAtual = YearMonth.now().getYear();
-		if (dto.getAnoLancamento() > anoAtual) {
-			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
-		} else if (dto.getAnoLancamento() < 1950) {
-			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950!");
-		}
-		
+
 		Optional<Musica> result2 = repository.findByNomeAndfindByArtista(dto.getNome(), dto.getArtista());
-		
-		if(result2.isPresent()) {
+
+		if (result2.isPresent()) {
 			throw new BadRequestException("Não permitido. Música já cadastrada!");
 		}
+
+		//capturando o ano atual
+		int anoAtual = YearMonth.now().getYear();
+		Integer anoLancamento = dto.getAnoLancamento();
 		
-		Musica musica = result.get();
-		
-		mapper.map(dto, musica);
-		
-		repository.save(musica);
-		
-		return "Atualizada com sucesso.";
+		if (anoLancamento != null && anoLancamento > anoAtual) {
+			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
+		}else if (anoLancamento != null && anoLancamento < 1950) {
+			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950!");
+		}else {
+			
+			Musica musica = result.get();
+
+			mapper.map(dto, musica);
+			repository.save(musica);
+
+			return "Atualizada com sucesso.";	
+		}
 	}
 	
 	public String excluir(Integer id) {
@@ -138,5 +143,4 @@ public class MusicaServices {
 		
 		return "Excluída com sucesso.";	
 	}
-
 }
