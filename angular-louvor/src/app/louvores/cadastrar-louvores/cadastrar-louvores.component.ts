@@ -77,16 +77,14 @@ export class CadastrarLouvoresComponent {
     this.louvoresService.cadastrar(this.formCadastro.value)
       .subscribe(
         (data) => {
+          console.log(data)
           this.louvor = data as any;
           this.mensagemSucesso = 'Ok'; //incializando a variável
           this.formCadastro.reset();
         },
         (e) => {
-          if(e.status == 400){
-            this.mensagemErro = "Música já cadastrada para esse artista.";
-          }else{
-            console.log(e.error);
-          } 
+          console.log(e.error)
+          this.mensagemErro = e.error.message;
         }
       )
   }

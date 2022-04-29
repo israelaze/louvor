@@ -1,16 +1,15 @@
 //Módulos
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LouvoresRoutingModule } from './louvores-routing.module';
-
-//Componentes
+import { NgModule } from '@angular/core';
 import { CadastrarLouvoresComponent } from './cadastrar-louvores/cadastrar-louvores.component';
 import { ConsultarLouvoresComponent } from './consultar-louvores/consultar-louvores.component';
+import { LouvoresRoutingModule } from './louvores-routing.module';
+
 
 @NgModule({
   declarations: [
-    CadastrarLouvoresComponent,
-    ConsultarLouvoresComponent
+    //ConsultarLouvoresComponent,
+   // CadastrarLouvoresComponent
   ],
   imports: [
     CommonModule,

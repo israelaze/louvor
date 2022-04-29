@@ -14,8 +14,8 @@ import { ConsultarLouvoresComponent } from './louvores/consultar-louvores/consul
 @NgModule({
   declarations: [
     AppComponent,
-    ConsultarLouvoresComponent,
-    CadastrarLouvoresComponent
+    CadastrarLouvoresComponent,
+    ConsultarLouvoresComponent
   ],
   imports: [
     BrowserModule,

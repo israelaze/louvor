@@ -5,6 +5,6 @@ export interface Louvor {
     album: string;
     anoLancamento: number;
     letra: string;
-	cifra: string;
-	youtube: string;
-}
+    cifra: string;
+    youtube: string;
+ }

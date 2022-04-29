@@ -30,13 +30,13 @@ export class LouvoresService {
     return this.httpClient.get<Louvor>(this.endpoint + '/' + id);
   }
 
-   // ATUALIZAR
-   atualizar(louvor: Louvor){
-    return this.httpClient.put(this.endpoint, louvor, { responseType: 'text' });
+  // ATUALIZAR
+  atualizar(louvor: Louvor): Observable<Louvor> {
+    return this.httpClient.put<Louvor>(this.endpoint, louvor);
   }
 
   // EXCLUIR
   excluir(id: number) {
-    return this.httpClient.delete(this.endpoint + '/' + id, { responseType: 'text' })
+    return this.httpClient.delete(this.endpoint + '/' + id, {responseType: 'text'})
   }
 }

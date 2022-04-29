@@ -77,12 +77,13 @@
                         <div class="col-md-5">
                             <label>Ano:</label>
                             <input type="text" class="form-control" formControlName="anoLancamento" placeholder="Informe o ano de lançamento" maxlength="4"/>
-                        </div>
-                        <span *ngIf="form.anoLancamento.invalid">
-                            <span *ngIf="form.anoLancamento.errors.pattern" class="text-danger">
-                                <i class="fa fa-exclamation-circle"></i> Apenas caracteres numéricos.
+                            <!-- exibindo mensagens de validação-->
+                            <span *ngIf="form.anoLancamento.invalid">
+                                <span *ngIf="form.anoLancamento.errors.pattern" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Apenas caracteres numéricos .
+                                </span>
                             </span>
-                        </span>
+                        </div>
                     </div>
                     <br />
 

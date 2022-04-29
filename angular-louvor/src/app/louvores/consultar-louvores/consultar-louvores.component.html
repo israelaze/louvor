@@ -1,1 +1,232 @@
-<p>consultar-louvores works!</p>
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Louvores cadastrados</h1>
+</div>
+
+<!-- Exibindo mensagens da modal de exclusão -->
+<div *ngIf="mensagemSucessoExclusao" class="w-50 p-2 alert alert-success alert-dismissible fade show" role="alert">
+    Música <strong>{{louvor.nome}}</strong> excluída com sucesso.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div *ngIf="mensagemErroExclusao" class="w-50 p-2 alert alert-danger mt-2 alert-dismissible fade show" role="alert">
+    <strong></strong> {{mensagemErroExclusao}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<!-- Página -->
+<div class="row">
+    <div class="col-xl-12 col-md-12 mb-12">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control" [(ngModel)]="pesquisa" placeholder="Pesquisar músicas">
+                        </div>
+                    </div>
+                </div>
+
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Artista</th>
+                            <th width="100">Operações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr
+                            *ngFor="let item of louvores | filter: pesquisa | paginate : { itemsPerPage : 5, currentPage : page }">
+                            <td>{{item.nome}}</td>
+                            <td>{{item.artista}}</td>
+                            <td>
+                                <button class="btn btn-danger btn-sm" (click)="buscarId(item.id)"
+                                    data-target="#janela_exclusao" data-toggle="modal">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                &nbsp;
+                                <button class="btn btn-primary btn-sm" (click)="buscarId(item.id)"
+                                    data-target="#janela_edicao" data-toggle="modal">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3">
+                                Total de músicas: {{louvores.length}}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Anterior"
+                    nextLabel="Próximo">
+                </pagination-controls>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Janela modal para exclusão de louvor -->
+<div id="janela_exclusao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Excluir Música</h5>
+            </div>
+            <div class="modal-body">
+
+                <!-- Exibindo os dados da música -->
+                <p>Deseja realmente excluir a música selecionada?</p>
+                Nome: <strong>{{louvor.nome}}</strong>
+                <br />
+                Artista: <strong>{{louvor.artista}}</strong>
+            </div>
+
+            <!-- Botões -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger " data-dismiss="modal" (click)="excluir(louvor.id)"> 
+                    <i class="fa fa-trash"></i>  Confirmar Exclusão
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Janela modal para atualizar Louvor -->
+<div id="janela_edicao" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atualizar Música</h5>
+            </div>
+            <div class="modal-body">
+
+                <div *ngIf="mensagemSucessoEdicao" class="alert alert-success alert-dismissible fade show" role="alert">
+                    A música <strong>{{louvor.nome}}</strong> foi aualizada com sucesso.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+    
+                <div *ngIf="mensagemErroEdicao" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Erro!</strong> {{mensagemErroEdicao}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form [formGroup]="formEdicao" (ngSubmit)="atualizar()">
+
+                    <!-- Campo Oculto (id)-->
+                    <input type="hidden" formControlName="id" [(ngModel)]="louvor.id" />
+
+                    <!--capturando o campo nome do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Nome:</label>
+                            <input type="text" class="form-control" formControlName="nome" [(ngModel)]="louvor.nome" maxlength="50" />
+                            <!-- exibindo mensagens de validação-->
+                            <span *ngIf="form.nome.touched && form.nome.invalid">
+                                <span *ngIf="form.nome.errors.required" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Campo obrigatório.
+                                </span>
+                                <span *ngIf="form.nome.errors.pattern" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Você deve informar o nome da música.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo Artista do formulário-->
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Artista:</label>
+                            <input type="text" class="form-control" formControlName="artista" [(ngModel)]="louvor.artista" maxlength="50" />
+                            <!-- exibindo mensagens de validação-->
+                            <span *ngIf="form.artista.touched && form.artista.invalid">
+                                <span *ngIf="form.artista.errors.required" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Campo obrigatório.
+                                </span>
+                                <span *ngIf="form.artista.errors.pattern" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Você deve informar o artista.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo album do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Álbum:</label>
+                            <input type="text" class="form-control" formControlName="album" [(ngModel)]="louvor.album" maxlength="50" />
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo Ano do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Ano:</label>
+                            <input type="text" class="form-control" formControlName="anoLancamento" [(ngModel)]="louvor.anoLancamento" maxlength="4" />
+                            <!-- exibindo mensagens de validação-->
+                            <span *ngIf="form.anoLancamento.invalid">
+                                <span *ngIf="form.anoLancamento.errors.pattern" class="text-danger">
+                                    <i class="fa fa-exclamation-circle"></i> Apenas caracteres numéricos.
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo letra do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Letra:</label>
+                            <input type="text" class="form-control" formControlName="letra" [(ngModel)]="louvor.letra" />
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo Cifra do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>Cifra:</label>
+                            <input type="text" class="form-control" formControlName="cifra" [(ngModel)]="louvor.cifra" />
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--capturando o campo YouTube do formulário-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label>YouTube:</label>
+                            <input type="text" class="form-control" formControlName="youtube" [(ngModel)]="louvor.youtube" />
+                        </div>
+                    </div>
+                    <br />
+
+                    <!--Botão submit chama a função atualizar() passando o conteúdo do formEdicao -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Fechar</button>
+                        &nbsp;
+                        <input [disabled]="!formEdicao.valid" type="submit" class="btn btn-success"
+                            value="Atualizar Música" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
