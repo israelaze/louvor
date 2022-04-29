@@ -31,7 +31,7 @@ public class MusicaServices {
 	private final MusicaRepository repository;
 	private final ModelMapper mapper;
 	
-	public MusicaPostDTO cadastrar(MusicaPostDTO dto) {
+	public MusicaGetDTO cadastrar(MusicaPostDTO dto) {
 		
 		Optional<Musica> result = repository.findByNomeAndfindByArtista(dto.getNome(), dto.getArtista());
 		
@@ -46,7 +46,7 @@ public class MusicaServices {
 		if (anoLancamento != null && anoLancamento > anoAtual) {
 			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
 		}else if (anoLancamento != null && anoLancamento < 1950) {
-			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950!");
+			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950.");
 		}else {
 			
 			Musica musica = new Musica();
@@ -54,7 +54,10 @@ public class MusicaServices {
 			
 			repository.save(musica);
 			
-			return dto;
+			MusicaGetDTO getDto = new MusicaGetDTO();
+			mapper.map(musica, getDto);
+			
+			return getDto;
 		}		
 	}
 	
@@ -96,7 +99,7 @@ public class MusicaServices {
 		return dto;
 	}
 	
-	public String atualizar(MusicaPutDTO dto) {
+	public MusicaGetDTO atualizar(MusicaPutDTO dto) {
 		
 		Optional<Musica> result = repository.findById(dto.getId());
 
@@ -117,15 +120,18 @@ public class MusicaServices {
 		if (anoLancamento != null && anoLancamento > anoAtual) {
 			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
 		}else if (anoLancamento != null && anoLancamento < 1950) {
-			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950!");
+			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950.");
 		}else {
 			
 			Musica musica = result.get();
-
 			mapper.map(dto, musica);
+			
 			repository.save(musica);
+			
+			MusicaGetDTO getDto = new MusicaGetDTO();
+			mapper.map(musica, getDto);
 
-			return "Atualizada com sucesso.";	
+			return getDto;	
 		}
 	}
 	

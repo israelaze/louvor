@@ -34,11 +34,11 @@ public class MusicaController {
 	
 	@PostMapping
 	@ApiOperation(value = "Cadastrar")
-	public ResponseEntity<MusicaPostDTO> cadastrar(@RequestBody @Valid MusicaPostDTO dto){
+	public ResponseEntity<MusicaGetDTO> cadastrar(@RequestBody @Valid MusicaPostDTO dto){
 		
 		try {
-			MusicaPostDTO post = service.cadastrar(dto);
-			return ResponseEntity.status(HttpStatus.CREATED).body(post);
+			MusicaGetDTO getDto = service.cadastrar(dto);
+			return ResponseEntity.status(HttpStatus.CREATED).body(getDto);
 			
 		} catch (ServiceException e) {
 			return ResponseEntity.internalServerError().build();
@@ -73,14 +73,14 @@ public class MusicaController {
 	
 	@PutMapping
 	@ApiOperation(value = "Atualizar")
-	public ResponseEntity<String> atualizar(@RequestBody @Valid MusicaPutDTO dto){
+	public ResponseEntity<MusicaGetDTO> atualizar(@RequestBody @Valid MusicaPutDTO dto){
 		
 		try {
-			String response = service.atualizar(dto);
-			return ResponseEntity.ok(response);
+			MusicaGetDTO getDto = service.atualizar(dto);
+			return ResponseEntity.ok(getDto);
 			
 		} catch (ServiceException e) {
-			return ResponseEntity.internalServerError().body(e.getMessage());
+			return ResponseEntity.internalServerError().build();
 		}
 	}
 	
