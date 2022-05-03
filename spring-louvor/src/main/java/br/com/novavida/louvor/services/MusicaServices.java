@@ -3,7 +3,6 @@ package br.com.novavida.louvor.services;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
-import java.time.YearMonth;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import br.com.novavida.louvor.controllers.MusicaController;
+import br.com.novavida.louvor.date.CurrentYear;
 import br.com.novavida.louvor.dtos.MusicaGetDTO;
 import br.com.novavida.louvor.dtos.MusicaPostDTO;
 import br.com.novavida.louvor.dtos.MusicaPutDTO;
@@ -39,26 +39,19 @@ public class MusicaServices {
 			throw new BadRequestException("Música já cadastrada!");
 		}
 		
-		//capturando o ano atual
-		int anoAtual = YearMonth.now().getYear();
-		Integer anoLancamento = dto.getAnoLancamento();
+		//validando o ano
+		CurrentYear year = new CurrentYear();
+		year.campararAno(dto.getAnoLancamento());
 		
-		if (anoLancamento != null && anoLancamento > anoAtual) {
-			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
-		}else if (anoLancamento != null && anoLancamento < 1950) {
-			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950.");
-		}else {
-			
-			Musica musica = new Musica();
-			mapper.map(dto, musica);
-			
-			repository.save(musica);
-			
-			MusicaGetDTO getDto = new MusicaGetDTO();
-			mapper.map(musica, getDto);
-			
-			return getDto;
-		}		
+		Musica musica = new Musica();
+		mapper.map(dto, musica);
+
+		repository.save(musica);
+
+		MusicaGetDTO getDto = new MusicaGetDTO();
+		mapper.map(musica, getDto);
+
+		return getDto;	
 	}
 	
 	public List<MusicaGetDTO> buscarTodas(){
@@ -107,32 +100,19 @@ public class MusicaServices {
 			throw new EntityNotFoundException("Não encontrada!");
 		}
 
-		Optional<Musica> result2 = repository.findByNomeAndfindByArtista(dto.getNome(), dto.getArtista());
+		//validando o ano
+		CurrentYear year = new CurrentYear();
+		year.campararAno(dto.getAnoLancamento());
 
-		if (result2.isPresent()) {
-			throw new BadRequestException("Não permitido. Música já cadastrada!");
-		}
+		Musica musica = result.get();
+		mapper.map(dto, musica);
 
-		//capturando o ano atual
-		int anoAtual = YearMonth.now().getYear();
-		Integer anoLancamento = dto.getAnoLancamento();
-		
-		if (anoLancamento != null && anoLancamento > anoAtual) {
-			throw new BadRequestException("Ano inválido. Ano atual: " + anoAtual);
-		}else if (anoLancamento != null && anoLancamento < 1950) {
-			throw new BadRequestException("Ano inválido. Válido apenas a partir de 1950.");
-		}else {
-			
-			Musica musica = result.get();
-			mapper.map(dto, musica);
-			
-			repository.save(musica);
-			
-			MusicaGetDTO getDto = new MusicaGetDTO();
-			mapper.map(musica, getDto);
+		repository.save(musica);
 
-			return getDto;	
-		}
+		MusicaGetDTO getDto = new MusicaGetDTO();
+		mapper.map(musica, getDto);
+
+		return getDto;
 	}
 	
 	public String excluir(Integer id) {
