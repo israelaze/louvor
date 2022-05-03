@@ -37,6 +37,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Artista</th>
+                            <th></th>
                             <th width="100">Operações</th>
                         </tr>
                     </thead>
@@ -45,6 +46,12 @@
                             *ngFor="let item of louvores | filter: pesquisa | paginate : { itemsPerPage : 5, currentPage : page }">
                             <td>{{item.nome}}</td>
                             <td>{{item.artista}}</td>
+                            <td>
+                                <button class="btn btn-success btn-sm"(click)="buscarId(item.id)"
+                                data-target="#janela_detalhes" data-toggle="modal"> detalhes
+                                <i class="bi bi-info-circle"></i>
+                                </button>
+                            </td>
                             <td>
                                 <button class="btn btn-danger btn-sm" (click)="buscarId(item.id)"
                                     data-target="#janela_exclusao" data-toggle="modal">
@@ -58,19 +65,18 @@
                             </td>
                         </tr>
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="3">
-                                Total de músicas: {{louvores.length}}
-                            </td>
-                        </tr>
-                    </tfoot>
                 </table>
-
+                <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            Total de músicas: {{louvores.length}}
+                        </td>
+                    </tr>
+                </tfoot>
+                <br>
                 <pagination-controls (pageChange)="handlePageChange($event)" previousLabel="Anterior"
                     nextLabel="Próximo">
                 </pagination-controls>
-
             </div>
         </div>
     </div>
@@ -131,9 +137,11 @@
                     <!-- Campo Oculto (id)-->
                     <input type="hidden" formControlName="id" [(ngModel)]="louvor.id" />
 
-                    <!--capturando o campo nome do formulário-->
+                    
                     <div class="row">
-                        <div class="col-md-5">
+
+                        <!--capturando o campo nome do formulário-->
+                        <div class="col-md-6">
                             <label>Nome:</label>
                             <input type="text" class="form-control" formControlName="nome" [(ngModel)]="louvor.nome" maxlength="50" />
                             <!-- exibindo mensagens de validação-->
@@ -146,12 +154,9 @@
                                 </span>
                             </span>
                         </div>
-                    </div>
-                    <br />
 
-                    <!--capturando o campo Artista do formulário-->
-                    <div class="row">
-                        <div class="col-md-3">
+                        <!--capturando o campo Artista do formulário-->
+                        <div class="col-md-6">
                             <label>Artista:</label>
                             <input type="text" class="form-control" formControlName="artista" [(ngModel)]="louvor.artista" maxlength="50" />
                             <!-- exibindo mensagens de validação-->
@@ -167,20 +172,20 @@
                     </div>
                     <br />
 
-                    <!--capturando o campo album do formulário-->
+                    
                     <div class="row">
-                        <div class="col-md-5">
+
+                        <!--capturando o campo album do formulário-->
+                        <div class="col-md-6">
                             <label>Álbum:</label>
                             <input type="text" class="form-control" formControlName="album" [(ngModel)]="louvor.album" maxlength="50" />
                         </div>
-                    </div>
-                    <br />
 
-                    <!--capturando o campo Ano do formulário-->
-                    <div class="row">
-                        <div class="col-md-5">
+                        <!--capturando o campo Ano do formulário-->
+                        <div class="col-md-3">
                             <label>Ano:</label>
-                            <input type="text" class="form-control" formControlName="anoLancamento" [(ngModel)]="louvor.anoLancamento" maxlength="4" />
+                            <input type="text" class="form-control" formControlName="anoLancamento" [(ngModel)]="louvor.anoLancamento"
+                                maxlength="4" />
                             <!-- exibindo mensagens de validação-->
                             <span *ngIf="form.anoLancamento.invalid">
                                 <span *ngIf="form.anoLancamento.errors.pattern" class="text-danger">
@@ -193,7 +198,7 @@
 
                     <!--capturando o campo letra do formulário-->
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <label>Letra:</label>
                             <input type="text" class="form-control" formControlName="letra" [(ngModel)]="louvor.letra" />
                         </div>
@@ -202,7 +207,7 @@
 
                     <!--capturando o campo Cifra do formulário-->
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <label>Cifra:</label>
                             <input type="text" class="form-control" formControlName="cifra" [(ngModel)]="louvor.cifra" />
                         </div>
@@ -211,7 +216,7 @@
 
                     <!--capturando o campo YouTube do formulário-->
                     <div class="row">
-                        <div class="col-md-5">
+                        <div class="col-md-12">
                             <label>YouTube:</label>
                             <input type="text" class="form-control" formControlName="youtube" [(ngModel)]="louvor.youtube" />
                         </div>
@@ -230,3 +235,33 @@
         </div>
     </div>
 </div>
+
+<!-- Janela modal para detalhar Louvor -->
+<div id="janela_detalhes" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Detalhes</h5>
+            </div>
+            <div class="modal-body">
+
+                <!-- Exibindo os dados da música -->
+            
+                Nome: <strong>{{louvor.nome}}</strong>
+                <br />
+                Artista: <strong>{{louvor.artista}}</strong>
+                <br />
+                Álbum: <strong>{{louvor.album}}</strong>
+                <br />
+                Ano de lançamento: <strong>{{louvor.anoLancamento}}</strong>
+                <br />
+                Letra: <a *ngIf="louvor.letra" href="{{louvor.letra}}" target="_blank" rel="noopener noreferrer">visualizar letra </a>
+                <br />
+                Cifra: <a *ngIf="louvor.cifra" href="{{louvor.cifra}}" target="_blank" rel="noopener noreferrer">visualizar cifra</a>
+                <br />
+                YouTube: <a *ngIf="louvor.youtube" href="{{louvor.youtube}}" target="_blank" rel="noopener noreferrer">assistir vídeo</a>
+            </div>
+        </div>
+    </div>
+</div>
+
