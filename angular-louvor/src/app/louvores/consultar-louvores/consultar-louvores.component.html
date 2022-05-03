@@ -246,20 +246,17 @@
             <div class="modal-body">
 
                 <!-- Exibindo os dados da música -->
-            
-                Nome: <strong>{{louvor.nome}}</strong>
-                <br />
-                Artista: <strong>{{louvor.artista}}</strong>
-                <br />
-                Álbum: <strong>{{louvor.album}}</strong>
-                <br />
-                Ano de lançamento: <strong>{{louvor.anoLancamento}}</strong>
-                <br />
-                Letra: <a *ngIf="louvor.letra" href="{{louvor.letra}}" target="_blank" rel="noopener noreferrer">visualizar letra </a>
-                <br />
-                Cifra: <a *ngIf="louvor.cifra" href="{{louvor.cifra}}" target="_blank" rel="noopener noreferrer">visualizar cifra</a>
-                <br />
-                YouTube: <a *ngIf="louvor.youtube" href="{{louvor.youtube}}" target="_blank" rel="noopener noreferrer">assistir vídeo</a>
+                <p>Nome: <strong>{{louvor.nome}}</strong></p>
+                <p>Artista: <strong>{{louvor.artista}}</strong></p>
+                <p>Álbum: <strong>{{louvor.album}}</strong></p>
+                <p>Ano de lançamento: <strong>{{louvor.anoLancamento}}</strong></p>
+                <p>Letra: <a *ngIf="louvor.letra" href="{{louvor.letra}}" target="_blank" rel="noopener noreferrer">visualizar letra </a></p>
+                <p>Cifra: <a *ngIf="louvor.cifra" href="{{louvor.cifra}}" target="_blank" rel="noopener noreferrer">visualizar cifra</a></p>
+                <p>YouTube: <a *ngIf="louvor.youtube" href="{{louvor.youtube}}" target="_blank" rel="noopener noreferrer">assistir vídeo</a></p>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-dismiss="modal">Fechar</button>
             </div>
         </div>
     </div>
