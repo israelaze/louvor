@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 @RequestMapping(value = "/api/usuarios")
-@Api(value = "Menu usuários")
+@Api(tags = "Menu usuários")
 public class UsuarioController {
 
 	private final UsuarioService service;
