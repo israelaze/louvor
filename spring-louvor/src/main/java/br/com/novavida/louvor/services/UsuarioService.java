@@ -15,6 +15,7 @@ import br.com.novavida.louvor.entities.Usuario;
 import br.com.novavida.louvor.exceptions.BadRequestException;
 import br.com.novavida.louvor.exceptions.EntityNotFoundException;
 import br.com.novavida.louvor.repositories.UsuarioRepository;
+import br.com.novavida.louvor.security.Criptografia;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -33,8 +34,13 @@ public class UsuarioService {
 			throw new BadRequestException("Erro: Email já cadastrado!");
 		}
 
+		// Criptografando a senha do usuário
+		String senha = Criptografia.criptografar(dto.getSenha());
+
 		Usuario usuario = new Usuario();
-		mapper.map(dto, usuario);
+		usuario.setNome(dto.getNome());
+		usuario.setEmail(dto.getEmail());
+		usuario.setSenha(senha);
 
 		repository.save(usuario);
 
