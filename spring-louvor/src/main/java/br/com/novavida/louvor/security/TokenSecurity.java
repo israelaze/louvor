@@ -21,7 +21,7 @@ public class TokenSecurity {
 
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils.commaSeparatedStringToAuthorityList("ROLE_USER");
 
-		// COTI_JWT -> nome da aplicação que gerou o token!
+		// LOUVOR_JWT -> nome da aplicação que gerou o token!
 		String token = Jwts.builder().setId("LOUVOR_JWT").setSubject(email)
 				.claim("authorities",
 						grantedAuthorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
