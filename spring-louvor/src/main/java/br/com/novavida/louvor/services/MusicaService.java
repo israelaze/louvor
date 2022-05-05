@@ -26,7 +26,7 @@ import lombok.AllArgsConstructor;
 @Service
 @Transactional
 @AllArgsConstructor
-public class MusicaServices {
+public class MusicaService {
 	
 	private final MusicaRepository repository;
 	private final ModelMapper mapper;

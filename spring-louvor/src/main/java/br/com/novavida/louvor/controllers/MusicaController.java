@@ -19,7 +19,7 @@ import br.com.novavida.louvor.dtos.MusicaGetDTO;
 import br.com.novavida.louvor.dtos.MusicaPostDTO;
 import br.com.novavida.louvor.dtos.MusicaPutDTO;
 import br.com.novavida.louvor.exceptions.ServiceException;
-import br.com.novavida.louvor.services.MusicaServices;
+import br.com.novavida.louvor.services.MusicaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -30,7 +30,7 @@ import lombok.AllArgsConstructor;
 @Api(tags = "Menu músicas")
 public class MusicaController {
 	
-	private final MusicaServices service;
+	private final MusicaService service;
 	
 	@PostMapping
 	@ApiOperation(value = "Cadastrar")
