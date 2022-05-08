@@ -94,7 +94,7 @@ export class ConsultarLouvoresComponent implements OnInit {
   buscarTodas(): void {
     this.louvoresService
       .buscarTodas()
-      .subscribe(louvores => (this.louvores = louvores as any), e => (console.log(e.error)));
+      .subscribe(louvores => (this.louvores = louvores as any, console.log(louvores)), e => (console.log(e.error)));
   }
 
   // BUSCAR ID

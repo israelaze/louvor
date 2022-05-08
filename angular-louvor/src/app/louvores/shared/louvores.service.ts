@@ -10,7 +10,7 @@ import { Louvor } from './louvor';
 export class LouvoresService {
 
    // URL API WEB
-  endpoint = environment.baseUrl;
+  endpoint = environment.baseUrl + "/musicas";
 
   // INJEÇÃO DE DEPENDÊNCIA
   constructor(private httpClient: HttpClient) { }

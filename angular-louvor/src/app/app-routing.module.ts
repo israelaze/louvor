@@ -5,9 +5,13 @@ import { RouterModule, Routes } from '@angular/router';
 //Rotas
 const routes: Routes = [
   //(redirecionamento)
-  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  { path: '', 
+    redirectTo: 'home',  pathMatch: 'full'
+  },
    //rotas filho de carregamento lento.(lazy-load)
-  { path: 'home', loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule) }
+  { path: '', 
+    loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule)
+  }
 ];
 
 @NgModule({

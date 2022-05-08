@@ -1,15 +1,10 @@
- //Módulos
-import { NgModule } from '@angular/core';
+//Módulos
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { LayoutRoutingModule } from './layout-routing.module';
 
- //Componentes
-import { HomeComponent } from './home/home.component';
-
 @NgModule({
-  declarations: [
-    HomeComponent
-  ],
+  declarations: [ ],
   imports: [
     CommonModule,
     LayoutRoutingModule
