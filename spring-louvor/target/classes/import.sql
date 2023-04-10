@@ -1,0 +1,1 @@
+INSERT INTO musicas (nome, artista, letra, cifra, youtube) VALUES ('Vida aos Sepúlcros', 'Gabriela Rocha', 'https://www.letras.mus.br/gabriela-rocha/vida-aos-sepulcros-part-elevation-worship/', 'https://www.cifraclub.com.br/gabriela-rocha/vida-aos-sepulcros-part-elevation-worship/', 'https://www.youtube.com/watch?v=cegHLh3Xbl8');
