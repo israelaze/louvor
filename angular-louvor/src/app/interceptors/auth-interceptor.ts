@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
         //BUSCANDO UM USUÁRIO AUTENTICADO
         const authUser = this.authService.usuarioAutenticado();
-        
+
         // VERIFICANDO SE OS ENDPOPINTS NÃO ESTÃO AUTORIZADOS
         if (!req.url.includes("/api/auth") && !req.url.includes("/api/usuarios")) {
 
