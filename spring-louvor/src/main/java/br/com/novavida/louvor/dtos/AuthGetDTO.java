@@ -10,5 +10,5 @@ public class AuthGetDTO {
 	private Integer id;
 	private String nome;
 	private String email;
-	private String acessToken;
+	private String accessToken;
 }

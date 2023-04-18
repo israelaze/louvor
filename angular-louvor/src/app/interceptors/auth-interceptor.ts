@@ -18,7 +18,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
         //BUSCANDO UM USUÁRIO AUTENTICADO
         const authUser = this.authService.usuarioAutenticado();
-        
+
         // VERIFICANDO SE OS ENDPOPINTS NÃO ESTÃO AUTORIZADOS
         if (!req.url.includes("/api/auth") && !req.url.includes("/api/usuarios")) {
 
@@ -26,7 +26,11 @@ export class AuthInterceptor implements HttpInterceptor {
             authRequest = req.clone({
                 setHeaders: { Authorization: `Bearer ${authUser.accessToken}` }
             })
+
+
         }
+
+        console.log(authRequest);
 
         // envia solicitação clonada com cabeçalho para o próximo manipulador.(cabeçalhos clonados, atualizados e com a autorização.)
         return next.handle(authRequest);
