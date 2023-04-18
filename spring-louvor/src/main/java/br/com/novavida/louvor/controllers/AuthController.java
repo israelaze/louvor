@@ -3,7 +3,6 @@ package br.com.novavida.louvor.controllers;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +20,6 @@ import lombok.AllArgsConstructor;
 @RequestMapping(value = "/api/auth")
 @AllArgsConstructor
 @Api(tags = "Autenticação")
-@CrossOrigin
 public class AuthController {
 	
 	private final AuthService service;

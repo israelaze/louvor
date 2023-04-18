@@ -43,7 +43,7 @@ public class AuthService {
 		
 		AuthGetDTO getDto = new AuthGetDTO();
 		mapper.map(usuario, getDto);
-		getDto.setAccessToken(token);
+		getDto.setAcessToken(token);
 		
 		return getDto;
 		

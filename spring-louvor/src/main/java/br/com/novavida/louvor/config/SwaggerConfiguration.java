@@ -34,12 +34,12 @@ public class SwaggerConfiguration {
 				Collections.emptyList());
 	}
 
-    @Bean
-    Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
-                .securityContexts(Arrays.asList(securityContext())).securitySchemes(Arrays.asList(apiKey())).select()
-                .apis(RequestHandlerSelectors.basePackage("br.com.novavida.louvor")).paths(PathSelectors.ant("/**")).build();
-    }
+	@Bean
+	public Docket api() {
+		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
+				.securityContexts(Arrays.asList(securityContext())).securitySchemes(Arrays.asList(apiKey())).select()
+				.apis(RequestHandlerSelectors.basePackage("br.com.novavida.louvor")).paths(PathSelectors.ant("/**")).build();
+	}
 
 	private SecurityContext securityContext() {
 		return SecurityContext.builder().securityReferences(defaultAuth()).build();
