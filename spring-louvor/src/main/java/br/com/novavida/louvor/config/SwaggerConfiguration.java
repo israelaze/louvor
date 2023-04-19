@@ -35,7 +35,7 @@ public class SwaggerConfiguration {
 	}
 
 	@Bean
-	public Docket api() {
+	Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
 				.securityContexts(Arrays.asList(securityContext())).securitySchemes(Arrays.asList(apiKey())).select()
 				.apis(RequestHandlerSelectors.basePackage("br.com.novavida.louvor")).paths(PathSelectors.ant("/**")).build();
