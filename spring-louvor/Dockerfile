@@ -1,12 +1,19 @@
-FROM maven:3.8.2-openjdk-17 AS build
-COPY . .
-RUN mvn clean package -DskipTests
+FROM maven:3.8.4-openjdk-17-slim AS build
 
-#
-# Package stage
-#
-FROM eclipse-temurin:17-jdk-alpine
-COPY --from=build /target/demo-0.0.1-SNAPSHOT.jar demo.jar
-# ENV PORT=8080
-EXPOSE 8080
-ENTRYPOINT ["java","-jar","demo.jar"]
+WORKDIR /app
+
+COPY pom.xml .
+
+RUN mvn dependency:go-offline
+
+COPY src/ /app/src/
+
+RUN mvn package -DskipTests
+
+FROM openjdk:17-jdk-slim
+
+WORKDIR /app
+
+COPY --from=build /app/target/<nome_do_seu_arquivo_jar>.jar /app/app.jar
+
+CMD ["java", "-jar", "app.jar"]
