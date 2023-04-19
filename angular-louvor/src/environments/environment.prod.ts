@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://spring-louvor.herokuapp.com/api'
+  baseUrl: 'https://louvor.onrender.com/api'
 };
