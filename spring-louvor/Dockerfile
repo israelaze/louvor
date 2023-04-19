@@ -14,6 +14,6 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /app
 
-COPY --from=build /app/target/<nome_do_seu_arquivo_jar>.jar /app/app.jar
+COPY --from=build /app/target/*.jar /app/app.jar
 
 CMD ["java", "-jar", "app.jar"]
