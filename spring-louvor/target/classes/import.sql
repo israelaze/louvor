@@ -1,2 +1,0 @@
-INSERT INTO musicas (nome, artista, letra, cifra, youtube) VALUES ('Vida aos Sepúlcros', 'Gabriela Rocha', 'https://www.letras.mus.br/gabriela-rocha/vida-aos-sepulcros-part-elevation-worship/', 'https://www.cifraclub.com.br/gabriela-rocha/vida-aos-sepulcros-part-elevation-worship/', 'https://www.youtube.com/watch?v=cegHLh3Xbl8');
-INSERT INTO usuarios (nome, email, senha) VALUES ('Terste teste', 't1@bol.com', '81dc9bdb52d04dc20036dbd8313ed055');
