@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'https://louvor.onrender.com/api'
+  baseUrl: 'https://louvor-spring-angular-production.up.railway.app/api'
 };
